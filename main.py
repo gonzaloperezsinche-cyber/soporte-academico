@@ -24,7 +24,6 @@ def calcular_prioridad(tipo):
         return "Baja"
 
 def mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad):
-    """Muestra la ficha formateada recibiendo datos por parámetros explícitos."""
     print("\n------------------------------------")
     print("      RESUMEN DE LA SOLICITUD       ")
     print("------------------------------------")
