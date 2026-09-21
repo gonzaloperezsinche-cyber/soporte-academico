@@ -24,7 +24,7 @@ def calcular_prioridad(tipo):
         return "Baja"
 
 def mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad):
-    """Muestra la ficha formateada de la solicitud registrada."""
+    """Muestra la ficha formateada recibiendo datos por parámetros explícitos."""
     print("\n------------------------------------")
     print("      RESUMEN DE LA SOLICITUD       ")
     print("------------------------------------")
@@ -62,7 +62,6 @@ def registrar_solicitud():
     prioridad = calcular_prioridad(tipo)
     
     print("\n¡Solicitud registrada con éxito!")
-    # Llamada a la función del Requerimiento 7 pasando los datos por parámetros
     mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad)
 
 def main():
