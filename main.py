@@ -16,7 +16,6 @@ def validar_tipo(tipo):
     return False
 
 def calcular_prioridad(tipo):
-    """Asigna el nivel de prioridad según el tipo de consulta."""
     tipo_limpio = tipo.strip().lower()
     if tipo_limpio in ["matricula", "plataforma"]:
         return "Alta"
@@ -25,8 +24,38 @@ def calcular_prioridad(tipo):
     else:
         return "Baja"
 
+def registrar_solicitud():
+    print("\n--- REGISTRAR NUEVA SOLICITUD ---")
+    
+    codigo = input("Ingrese código de estudiante (mínimo 4 caracteres): ")
+    while not validar_codigo(codigo):
+        print("Error: El código debe tener al menos 4 caracteres.")
+        codigo = input("Ingrese un código válido: ")
+    
+    print("Tipos válidos: matricula, pagos, constancia, plataforma, otro")
+    tipo = input("Ingrese tipo de consulta: ")
+    while not validar_tipo(tipo):
+        print("Error: Tipo de consulta no válido.")
+        tipo = input("Ingrese un tipo válido: ")
+        
+    prioridad = calcular_prioridad(tipo)
+    
+    print("\n¡Solicitud registrada con éxito!")
+    print(f"Código: {codigo.strip()}")
+    print(f"Tipo: {tipo.strip().lower()}")
+    print(f"Prioridad asignada: {prioridad}")
+
 def main():
-    mostrar_menu()
+    while True:
+        mostrar_menu()
+        opcion = input("Seleccione una opción: ")
+        if opcion == "1":
+            registrar_solicitud()
+        elif opcion == "2":
+            print("Saliendo del sistema...")
+            break
+        else:
+            print("Opción no válida. Intente nuevamente.")
 
 if __name__ == "__main__":
     main()
