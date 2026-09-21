@@ -23,6 +23,18 @@ def calcular_prioridad(tipo):
     else:
         return "Baja"
 
+def mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad):
+    """Muestra la ficha formateada de la solicitud registrada."""
+    print("\n------------------------------------")
+    print("      RESUMEN DE LA SOLICITUD       ")
+    print("------------------------------------")
+    print(f"Código del estudiante : {codigo}")
+    print(f"Nombre del estudiante : {nombre}")
+    print(f"Tipo de consulta     : {tipo}")
+    print(f"Descripción          : {descripcion}")
+    print(f"Prioridad asignada   : {prioridad}")
+    print("------------------------------------\n")
+
 def registrar_solicitud():
     print("\n--- REGISTRAR NUEVA SOLICITUD ---")
     
@@ -50,11 +62,8 @@ def registrar_solicitud():
     prioridad = calcular_prioridad(tipo)
     
     print("\n¡Solicitud registrada con éxito!")
-    print(f"Código: {codigo}")
-    print(f"Nombre: {nombre}")
-    print(f"Tipo: {tipo}")
-    print(f"Descripción: {descripcion}")
-    print(f"Prioridad asignada: {prioridad}")
+    # Llamada a la función del Requerimiento 7 pasando los datos por parámetros
+    mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad)
 
 def main():
     while True:
