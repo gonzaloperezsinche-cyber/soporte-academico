@@ -15,6 +15,16 @@ def validar_tipo(tipo):
         return True
     return False
 
+def calcular_prioridad(tipo):
+    """Asigna el nivel de prioridad según el tipo de consulta."""
+    tipo_limpio = tipo.strip().lower()
+    if tipo_limpio in ["matricula", "plataforma"]:
+        return "Alta"
+    elif tipo_limpio in ["pagos", "constancia"]:
+        return "Media"
+    else:
+        return "Baja"
+
 def main():
     mostrar_menu()
 
