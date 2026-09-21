@@ -4,16 +4,15 @@ def mostrar_menu():
     print("2. Salir")
 
 def validar_codigo(codigo):
-    longitud_minima = 4
-    if len(codigo.strip()) >= longitud_minima:
-        return True
-    return False
+    return len(codigo.strip()) >= 4
 
 def validar_tipo(tipo):
     tipos_validos = ["matricula", "pagos", "constancia", "plataforma", "otro"]
-    if tipo.strip().lower() in tipos_validos:
-        return True
-    return False
+    return tipo.strip().lower() in tipos_validos
+
+def validar_texto_obligatorio(texto):
+    """Valida que un texto no esté vacío ni contenga solo espacios."""
+    return len(texto.strip()) > 0
 
 def calcular_prioridad(tipo):
     tipo_limpio = tipo.strip().lower()
@@ -29,20 +28,32 @@ def registrar_solicitud():
     
     codigo = input("Ingrese código de estudiante (mínimo 4 caracteres): ")
     while not validar_codigo(codigo):
-        print("Error: El código debe tener al menos 4 caracteres.")
-        codigo = input("Ingrese un código válido: ")
-    
+        print("Error: Código no válido.")
+        codigo = input("Ingrese código de estudiante (mínimo 4 caracteres): ")
+
+    nombre = input("Ingrese nombre del estudiante: ")
+    while not validar_texto_obligatorio(nombre):
+        print("Error: El nombre no puede estar vacío.")
+        nombre = input("Ingrese nombre del estudiante: ")
+
     print("Tipos válidos: matricula, pagos, constancia, plataforma, otro")
     tipo = input("Ingrese tipo de consulta: ")
     while not validar_tipo(tipo):
         print("Error: Tipo de consulta no válido.")
-        tipo = input("Ingrese un tipo válido: ")
-        
+        tipo = input("Ingrese tipo de consulta: ")
+
+    descripcion = input("Ingrese descripción breve: ")
+    while not validar_texto_obligatorio(descripcion):
+        print("Error: La descripción no puede estar vacía.")
+        descripcion = input("Ingrese descripción breve: ")
+
     prioridad = calcular_prioridad(tipo)
     
     print("\n¡Solicitud registrada con éxito!")
-    print(f"Código: {codigo.strip()}")
-    print(f"Tipo: {tipo.strip().lower()}")
+    print(f"Código: {codigo}")
+    print(f"Nombre: {nombre}")
+    print(f"Tipo: {tipo}")
+    print(f"Descripción: {descripcion}")
     print(f"Prioridad asignada: {prioridad}")
 
 def main():
