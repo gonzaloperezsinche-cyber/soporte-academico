@@ -1,7 +1,8 @@
 def mostrar_menu():
     print("\n=== SISTEMA DE SOPORTE ACADÉMICO ===")
     print("1. Registrar nueva solicitud")
-    print("2. Salir")
+    print("2. Registrar múltiples solicitudes")
+    print("3. Salir")
 
 def validar_codigo(codigo):
     return len(codigo.strip()) >= 4
@@ -11,7 +12,6 @@ def validar_tipo(tipo):
     return tipo.strip().lower() in tipos_validos
 
 def validar_texto_obligatorio(texto):
-    """Valida que un texto no esté vacío ni contenga solo espacios."""
     return len(texto.strip()) > 0
 
 def calcular_prioridad(tipo):
@@ -63,6 +63,20 @@ def registrar_solicitud():
     print("\n¡Solicitud registrada con éxito!")
     mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad)
 
+def registrar_multiples_solicitudes():
+    print("\n--- REGISTRO DE MÚLTIPLES SOLICITUDES ---")
+    
+    cantidad_str = input("¿Cuántas solicitudes desea registrar? (mínimo 3): ")
+    while not cantidad_str.isdigit() or int(cantidad_str) < 3:
+        print("Error: Debe ingresar un número entero mayor o igual a 3.")
+        cantidad_str = input("¿Cuántas solicitudes desea registrar? (mínimo 3): ")
+    
+    cantidad = int(cantidad_str)
+    
+    for i in range(1, cantidad + 1):
+        print(f"\n>>> Registrando solicitud {i} de {cantidad} <<<")
+        registrar_solicitud()
+
 def main():
     while True:
         mostrar_menu()
@@ -70,6 +84,8 @@ def main():
         if opcion == "1":
             registrar_solicitud()
         elif opcion == "2":
+            registrar_multiples_solicitudes()
+        elif opcion == "3":
             print("Saliendo del sistema...")
             break
         else:
