@@ -2,7 +2,8 @@ def mostrar_menu():
     print("\n=== SISTEMA DE SOPORTE ACADÉMICO ===")
     print("1. Registrar nueva solicitud")
     print("2. Registrar múltiples solicitudes")
-    print("3. Salir")
+    print("3. Ver todas las solicitudes registradas")
+    print("4. Salir")
 
 def validar_codigo(codigo):
     return len(codigo.strip()) >= 4
@@ -23,18 +24,18 @@ def calcular_prioridad(tipo):
     else:
         return "Baja"
 
-def mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad):
+def mostrar_resumen(solicitud):
     print("\n------------------------------------")
     print("      RESUMEN DE LA SOLICITUD       ")
     print("------------------------------------")
-    print(f"Código del estudiante : {codigo}")
-    print(f"Nombre del estudiante : {nombre}")
-    print(f"Tipo de consulta     : {tipo}")
-    print(f"Descripción          : {descripcion}")
-    print(f"Prioridad asignada   : {prioridad}")
+    print(f"Código del estudiante : {solicitud['codigo']}")
+    print(f"Nombre del estudiante : {solicitud['nombre']}")
+    print(f"Tipo de consulta     : {solicitud['tipo']}")
+    print(f"Descripción          : {solicitud['descripcion']}")
+    print(f"Prioridad asignada   : {solicitud['prioridad']}")
     print("------------------------------------\n")
 
-def registrar_solicitud():
+def registrar_solicitud(lista_solicitudes):
     print("\n--- REGISTRAR NUEVA SOLICITUD ---")
     
     codigo = input("Ingrese código de estudiante (mínimo 4 caracteres): ")
@@ -60,10 +61,20 @@ def registrar_solicitud():
 
     prioridad = calcular_prioridad(tipo)
     
+    solicitud = {
+        "codigo": codigo,
+        "nombre": nombre,
+        "tipo": tipo,
+        "descripcion": descripcion,
+        "prioridad": prioridad
+    }
+    
+    lista_solicitudes.append(solicitud)
+    
     print("\n¡Solicitud registrada con éxito!")
-    mostrar_resumen(codigo, nombre, tipo, descripcion, prioridad)
+    mostrar_resumen(solicitud)
 
-def registrar_multiples_solicitudes():
+def registrar_multiples_solicitudes(lista_solicitudes):
     print("\n--- REGISTRO DE MÚLTIPLES SOLICITUDES ---")
     
     cantidad_str = input("¿Cuántas solicitudes desea registrar? (mínimo 3): ")
@@ -75,17 +86,34 @@ def registrar_multiples_solicitudes():
     
     for i in range(1, cantidad + 1):
         print(f"\n>>> Registrando solicitud {i} de {cantidad} <<<")
-        registrar_solicitud()
+        registrar_solicitud(lista_solicitudes)
+
+def mostrar_todas_solicitudes(lista_solicitudes):
+    if not lista_solicitudes:
+        print("\nNo hay solicitudes registradas aún.")
+        return
+
+    print(f"\n=== HISTORIAL DE SOLICITUDES ({len(lista_solicitudes)}) ===")
+    for idx, sol in enumerate(lista_solicitudes, 1):
+        print(f"\nSolicitud #{idx}:")
+        print(f"  Código    : {sol['codigo']}")
+        print(f"  Nombre    : {sol['nombre']}")
+        print(f"  Tipo      : {sol['tipo']}")
+        print(f"  Prioridad : {sol['prioridad']}")
 
 def main():
+    solicitudes = []
+    
     while True:
         mostrar_menu()
         opcion = input("Seleccione una opción: ")
         if opcion == "1":
-            registrar_solicitud()
+            registrar_solicitud(solicitudes)
         elif opcion == "2":
-            registrar_multiples_solicitudes()
+            registrar_multiples_solicitudes(solicitudes)
         elif opcion == "3":
+            mostrar_todas_solicitudes(solicitudes)
+        elif opcion == "4":
             print("Saliendo del sistema...")
             break
         else:
