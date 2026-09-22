@@ -3,7 +3,8 @@ def mostrar_menu():
     print("1. Registrar nueva solicitud")
     print("2. Registrar múltiples solicitudes")
     print("3. Ver todas las solicitudes registradas")
-    print("4. Salir")
+    print("4. Ver estadísticas por prioridad")
+    print("5. Salir")
 
 def validar_codigo(codigo):
     return len(codigo.strip()) >= 4
@@ -101,6 +102,23 @@ def mostrar_todas_solicitudes(lista_solicitudes):
         print(f"  Tipo      : {sol['tipo']}")
         print(f"  Prioridad : {sol['prioridad']}")
 
+def mostrar_estadisticas_prioridad(lista_solicitudes):
+    if not lista_solicitudes:
+        print("\nNo hay solicitudes registradas para generar estadísticas.")
+        return
+
+    total = len(lista_solicitudes)
+    alta = sum(1 for sol in lista_solicitudes if sol["prioridad"] == "Alta")
+    media = sum(1 for sol in lista_solicitudes if sol["prioridad"] == "Media")
+    baja = sum(1 for sol in lista_solicitudes if sol["prioridad"] == "Baja")
+
+    print("\n=== ESTADÍSTICAS DE SOLICITUDES ===")
+    print(f"Total de solicitudes registradas : {total}")
+    print(f"  - Prioridad Alta  : {alta}")
+    print(f"  - Prioridad Media : {media}")
+    print(f"  - Prioridad Baja  : {baja}")
+    print("====================================\n")
+
 def main():
     solicitudes = []
     
@@ -114,6 +132,8 @@ def main():
         elif opcion == "3":
             mostrar_todas_solicitudes(solicitudes)
         elif opcion == "4":
+            mostrar_estadisticas_prioridad(solicitudes)
+        elif opcion == "5":
             print("Saliendo del sistema...")
             break
         else:
